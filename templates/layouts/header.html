@@ -1,0 +1,28 @@
+{% load static %}
+
+<header>
+    <div class="left">
+        <div class="links">
+            <a href="{% url 'main:home' %}">
+                <img src="{% static 'images/home.svg' %}" class="home" alt="">
+            </a>
+            {% if request.user.is_staff %}
+                <a href="{% url 'courses:all_manage' %}">
+                    <img src="{% static 'images/admin.png' %}" class="admin" alt="">
+                </a>
+            {% endif %}
+        </div>
+        <h1>Pattendance</h1>
+    </div>
+    <div class="right">
+        <div class="left"><img
+                src="
+
+                        {% if request.user.avatar %}{{ request.user.avatar }}{% else %}{% static 'images/guest.jpg' %}{% endif %}"
+                alt=""></div>
+        <div class="right">
+            <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+            <h3>{{ request.user.email }}</h3>
+        </div>
+    </div>
+</header>

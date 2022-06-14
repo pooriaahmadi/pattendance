@@ -1,0 +1,71 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block content_inner %}
+    <div class="course-view">
+        <div class="left">
+            <div class="class {% if attendance %}signed-in{% endif %}"
+                 data-targeturl="{% url 'courses:course_view' course.id %}">
+                <div class="top">
+                    <div class="left">
+                        <div class="logo">
+                            <h1>{{ course.title.0|capfirst }}</h1>
+                        </div>
+                        <h1>{{ course.title|capfirst }}</h1>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="left">
+                        <h3>{{ course.teacher.first_name }} {{ course.teacher.last_name }}</h3>
+                    </div>
+                    <div class="right">
+                        <p>{{ course.start_time|time:"H:i" }}</p>
+                        <p>until</p>
+                        <p>{{ course.end_time|time:"H:i" }}</p>
+                    </div>
+                </div>
+            </div>
+            {% if not attendance %}
+                {% if error %}
+                    <h2 class="error">{{ details }}</h2>
+                {% endif %}
+                <h2 class="details">Please scan the QR code provided by your teacher to continue</h2>
+            {% endif %}
+        </div>
+        <div class="right">
+            {% if attendance %}
+                <div>
+                    <h1>You're all set!</h1>
+                    <p>You submitted your attendance at {{ attendance.timestamp }}</p>
+                    <a href="{% url 'courses:all' %}">Home</a>
+                </div>
+            {% else %}
+                <video></video>
+            {% endif %}
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="code" id="code">
+        </form>
+    </div>
+{% endblock %}
+
+{% if not attendance %}
+    {% block custom_javascript %}
+        <script>
+            const video = document.querySelector("video")
+            const input = document.getElementById("code");
+            const form = document.querySelector("form")
+            const onResult = (result) => {
+                input.value = result.data;
+                form.submit()
+            }
+            const qrScanner = new QrScanner(video, onResult, {
+                highlightScanRegion: true,
+                disallowCanvasResizing: false
+            });
+            qrScanner.setCamera("environment"); // async
+            qrScanner.start();
+
+        </script>
+    {% endblock %}
+{% endif %}

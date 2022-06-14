@@ -1,0 +1,21 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="landing">
+        <form method="POST" action="{% url 'users:google_landing' %}">
+            {% csrf_token %}
+            <h1>Pattendance</h1>
+            <h2>There's no time like the<br/>PRESENT</h2>
+            <img src="{% static 'images/guy.svg' %}" alt="the_guy">
+            <h3>LOGIN TO YOUR ACCOUNT</h3>
+            <input type="submit" value="LOGIN USING GOOGLE">
+        </form>
+        <div class="showcase">
+            <div>
+                <h1>There is no time like the</h1>
+                <h1>PRESENT</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}

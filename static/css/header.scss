@@ -1,0 +1,63 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+
+  > .left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    a {
+      text-decoration: none;
+      display: flex;
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-family: "Fredoka";
+      font-weight: 500;
+      font-size: 48px;
+    }
+  }
+
+  > .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > .left {
+      img {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+      }
+    }
+
+    > .right {
+      h2 {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      h3 {
+        font-size: 15px;
+        font-weight: normal;
+      }
+    }
+  }
+}

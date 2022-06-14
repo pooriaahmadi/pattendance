@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+{% include "layouts/head.html" %}
+<body>
+{% block content %}
+    {% include "layouts/header.html" %}
+    {% block content_inner %}
+    {% endblock %}
+{% endblock %}
+</body>
+{% include "layouts/scripts.html" %}
+{% block custom_javascript %}
+{% endblock %}
+</html>

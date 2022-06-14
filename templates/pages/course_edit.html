@@ -1,0 +1,145 @@
+{% extends "layouts/app.html" %}
+{% load stringformat static %}
+{% block content_inner %}
+    <div class="qrcode" style="display: none">
+        <button>Close</button>
+        <div class="inner">
+            <h1>Refreshes in xx seconds</h1>
+        </div>
+    </div>
+    <div class="course-edit">
+        <form class="left" method="post">
+            {% csrf_token %}
+            <div class="item">
+                <h1>Title:</h1>
+                <input name="title" type="text" value="{{ course.title }}">
+            </div>
+            <div class="timepart item">
+                <h1>Time:</h1>
+                <div class="time">
+                    <div class="start">
+                        <input name="start_time" type="datetime-local"
+                               value="{{ course.start_time|stringformat:'%Y-%m-%dT%H:%M' }}">
+                    </div>
+                    <h2>to</h2>
+                    <div class="end">
+                        <input name="end_time" type="datetime-local"
+                               value="{{ course.end_time|stringformat:'%Y-%m-%dT%H:%M' }}">
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <input type="submit" value="Save">
+                <button type="button" class="delete">Delete</button>
+                <button type="button" class="qrcode">QR code</button>
+            </div>
+        </form>
+        <div class="right">
+            <div class="present">
+                <h1>Present</h1>
+                <div class="users">
+                    {% if attendance|length == 0 %}
+                        <h2>Nobody is present :(</h2>
+                    {% endif %}
+                    {% for user in attendance %}
+                        <div class="user">
+                            <div class="left"><img src="
+
+
+
+                                    {% if user.avatar %}{{ user.avatar }}{% else %}{% static 'images/guest.jpg' %}{% endif %}"
+                                                   alt="">
+                            </div>
+                            <div class="right">
+                                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                                <h3>{{ user.email }}</h3>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="absent">
+                <h1>Absent</h1>
+                <div class="users">
+                    {% if associated_users|length == 0 %}
+                        <h2>Nobody is absent today!</h2>
+                    {% endif %}
+                    {% for user in associated_users %}
+                        {% if not user in attendance %}
+                            <div class="user">
+                                <div class="left"><img src="
+
+                                        {% if user.avatar %}{{ user.avatar }}{% else %}{% static 'images/guest.jpg' %}{% endif %}"
+                                                       alt=""></div>
+                                <div class="right">
+                                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                                    <h3>{{ user.email }}</h3>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="delete" style="display: none;" action="{% url 'courses:delete' course.id %}" method="POST">
+        {% csrf_token %}
+    </form>
+{% endblock %}
+
+{% block custom_javascript %}
+    <script>
+        const code = "{{ course.code }}";
+        let interval = null;
+        isQRcode = localStorage.getItem("qrcode");
+        if (isQRcode == "true") {
+            let secondsPassed = 0;
+            const secondsLimit = 20;
+            document.querySelector("div.qrcode h1").innerHTML = `Refreshes in ${secondsLimit - secondsPassed} seconds`;
+            document.querySelector("div.qrcode").style.display = "flex";
+
+            interval = setInterval(() => {
+                secondsPassed++;
+                if (secondsPassed >= secondsLimit) {
+                    window.location.reload()
+                } else {
+                    document.querySelector("div.qrcode h1").innerHTML = `Refreshes in ${secondsLimit - secondsPassed} seconds`;
+                }
+            }, 1000);
+        }
+        deleteButton = document.querySelector(".delete");
+        deleteButton.addEventListener("click", (e) => {
+            document.getElementById("delete").submit()
+        });
+
+        qrcodeButton = document.querySelector("button.qrcode");
+        qrcodeButton.addEventListener("click", (e) => {
+            localStorage.setItem("qrcode", true)
+            let secondsPassed = 0;
+            const secondsLimit = 20;
+            document.querySelector("div.qrcode h1").innerHTML = `Refreshes in ${secondsLimit - secondsPassed} seconds`;
+            document.querySelector("div.qrcode").style.display = "flex";
+
+            interval = setInterval(() => {
+                secondsPassed++;
+                if (secondsPassed >= secondsLimit) {
+                    window.location.reload()
+                } else {
+                    document.querySelector("div.qrcode h1").innerHTML = `Refreshes in ${secondsLimit - secondsPassed} seconds`;
+                }
+            }, 1000);
+        });
+
+        closeButton = document.querySelector("div.qrcode button");
+        closeButton.addEventListener("click", () => {
+            clearInterval(interval)
+            document.querySelector("div.qrcode").style.display = "none";
+            localStorage.setItem("qrcode", false)
+        })
+        new QRCode(document.querySelector(".qrcode>.inner"), {
+            text: code,
+            width: 1024,
+            height: 1024
+        });
+    </script>
+{% endblock %}

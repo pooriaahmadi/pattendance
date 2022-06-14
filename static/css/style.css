@@ -1,0 +1,596 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.landing {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #F9F9F9;
+}
+.landing form {
+  position: absolute;
+  width: 450px;
+  left: calc(30% - 450px / 2);
+  z-index: 1;
+  background-color: white;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  border-radius: 15px;
+}
+.landing form > h1 {
+  font-family: "Fredoka";
+  font-weight: 500;
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+.landing form h2 {
+  display: none;
+}
+.landing form img {
+  width: 191px;
+  margin-bottom: 40px;
+}
+.landing form > h3 {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.landing form input {
+  outline: none;
+  border: none;
+  background-color: #3D77BB;
+  padding: 15px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.landing .showcase {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #96BCE8;
+  color: white;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px 0 0 20px;
+}
+.landing .showcase > div {
+  margin-left: calc(450px / 2);
+  text-align: center;
+}
+.landing .showcase > div h1:first-of-type {
+  font-size: 48px;
+}
+.landing .showcase > div h1:last-of-type {
+  font-size: 64px;
+}
+
+.todays-classes {
+  margin-top: 20px;
+  padding: 0 20px;
+}
+.todays-classes > h1 {
+  font-weight: 500;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+.todays-classes .classes {
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 10px;
+}
+.todays-classes .classes .class {
+  cursor: pointer;
+  text-decoration: none;
+  flex-basis: 200px;
+  flex-grow: 1;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  border-radius: 5px;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todays-classes .classes .class.deactivated {
+  cursor: not-allowed;
+}
+.todays-classes .classes .class.deactivated > .logo_wrapper > .logo {
+  background-color: #B8B8B8;
+}
+.todays-classes .classes .class > .logo_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todays-classes .classes .class > .logo_wrapper > .logo {
+  margin-right: 15px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #96BCE8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 40px;
+  height: 40px;
+}
+.todays-classes .classes .class > .logo_wrapper > .logo h1 {
+  font-weight: 500;
+  font-size: 24px;
+}
+.todays-classes .classes .class > .logo_wrapper > h1 {
+  font-weight: normal;
+  font-size: 24px;
+  margin-right: 40px;
+  color: black;
+}
+.todays-classes .classes .class .right img {
+  width: 20px;
+  height: 20px;
+}
+.todays-classes .classes .class p {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+header > .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header > .left .links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header > .left a {
+  text-decoration: none;
+  display: flex;
+}
+header > .left img {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+header > .left h1 {
+  font-family: "Fredoka";
+  font-weight: 500;
+  font-size: 48px;
+}
+header > .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header > .right > .left img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+header > .right > .right h2 {
+  font-size: 16px;
+  font-weight: 500;
+}
+header > .right > .right h3 {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.course-view {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.course-view > .left {
+  flex-basis: 30%;
+  flex-grow: 1;
+}
+.course-view > .left > h2 {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+.course-view > .left > h2.error {
+  color: red;
+  margin-bottom: 20px;
+}
+.course-view > .left .class {
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  border-radius: 10px;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.course-view > .left .class.signed-in > .top .left > .logo {
+  background-color: #63F64B;
+}
+.course-view > .left .class > .top {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.course-view > .left .class > .top .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.course-view > .left .class > .top .left > .logo {
+  margin-right: 15px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #96BCE8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 60px;
+  height: 60px;
+}
+.course-view > .left .class > .top .left > .logo h1 {
+  font-weight: 500;
+  font-size: 36px;
+}
+.course-view > .left .class > .top .left > h1 {
+  font-weight: normal;
+  font-size: 36px;
+}
+.course-view > .left .class .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.course-view > .left .class .bottom .left h3 {
+  font-size: 20px;
+  font-weight: normal;
+}
+.course-view > .left .class .bottom .right {
+  display: flex;
+}
+.course-view > .left .class .bottom .right p {
+  margin-right: 5px;
+}
+.course-view > .left .class .bottom .right p:last-of-type {
+  margin-right: unset;
+}
+.course-view > .right {
+  flex-basis: 60%;
+}
+.course-view > .right video {
+  width: 100%;
+}
+.course-view > .right div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.course-view > .right div h1 {
+  font-weight: 500;
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.course-view > .right div p {
+  font-weight: normal;
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.course-view > .right div a {
+  text-decoration: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 20px 35px;
+  background-color: #3D77BB;
+}
+.course-view > .right video {
+  border-radius: 15px;
+}
+
+div.qrcode {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.17);
+  backdrop-filter: blur(5px);
+  top: 0;
+  left: 0;
+}
+div.qrcode button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  outline: none;
+  border: none;
+  background-color: red;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 32px;
+  color: white;
+  border-radius: 5px;
+}
+div.qrcode h1 {
+  color: white;
+  margin-bottom: 20px;
+}
+div.qrcode .inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+div.qrcode img {
+  height: 80%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.course-edit {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+}
+.course-edit > .left {
+  flex-basis: 40%;
+  flex-grow: 1;
+  width: 100%;
+}
+.course-edit > .left .bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+.course-edit > .left .bottom > input {
+  flex-basis: 31%;
+  flex-grow: 1;
+  background-color: #63F64B;
+}
+.course-edit > .left .bottom > button {
+  flex-basis: 31%;
+  flex-grow: 1;
+  outline: none;
+  border: none;
+  height: 100%;
+  background-color: red;
+}
+.course-edit > .left .bottom > button.delete {
+  background-color: red;
+}
+.course-edit > .left .bottom > button.qrcode {
+  background-color: #3D77BB;
+}
+.course-edit > .left .bottom > * {
+  width: calc(33.3333333333% - 10px);
+  font-size: 32px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px 0;
+}
+.course-edit > .left .item {
+  margin-bottom: 20px;
+}
+.course-edit > .left .item > h1 {
+  font-weight: 500;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+.course-edit > .left .item .time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.course-edit > .left .item > input[type=text] {
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  width: 100%;
+  font-size: 32px;
+  font-weight: normal;
+  padding: 8px;
+}
+.course-edit > .left .item > input[type=text]:focus {
+  outline: none;
+}
+.course-edit > .right {
+  flex-basis: 55%;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.course-edit > .right > div {
+  flex-basis: 45%;
+  flex-grow: 1;
+}
+.course-edit > .right .users {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+}
+.course-edit > .right .users .user {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.course-edit > .right .users .user:last-of-type {
+  margin-bottom: unset;
+}
+.course-edit > .right .users .user > .left img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+.course-edit > .right .users .user > .right h2 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.course-edit > .right .users .user > .right h3 {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+@media screen and (max-width: 950px) {
+  .landing {
+    justify-content: center;
+  }
+  .landing > form {
+    position: unset !important;
+    top: unset !important;
+    left: unset !important;
+    width: 100%;
+    height: 100%;
+    border-radius: unset;
+  }
+  .landing > form h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  .landing > form h2 {
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
+  .landing > form img {
+    width: 120px;
+  }
+  .landing .showcase {
+    display: none;
+  }
+}
+@media screen and (max-width: 800px) {
+  header h1 {
+    font-size: 36px !important;
+  }
+  header a img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  header > .right > .left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  header > .right > .left img {
+    width: 40px;
+    height: 40px;
+  }
+}
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+  }
+  header > .left {
+    width: 100%;
+    margin-bottom: 40px;
+    justify-content: center;
+    position: relative;
+  }
+  header > .left .links {
+    position: absolute;
+    left: 0;
+  }
+  header > .right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  header > .right img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .course-view > .right {
+    flex-basis: 100%;
+  }
+  .course-view > .right div a {
+    padding: 10px 20px;
+  }
+  .course-view > .right div h1 {
+    font-size: 28px;
+  }
+
+  header .left .links {
+    position: unset !important;
+  }
+
+  .course-edit > .left h1 {
+    font-size: 24px !important;
+  }
+  .course-edit > .left input[type=text] {
+    font-size: 20px !important;
+  }
+  .course-edit > .left input[type=submit], .course-edit > .left button {
+    font-size: 16px !important;
+  }
+}
+@media screen and (max-width: 460px) {
+  .course-edit > .left .item .time {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .course-edit > .left .item .time > * {
+    margin-bottom: 10px;
+  }
+  .course-edit > .left .item .time input:last-of-type {
+    margin-bottom: 0;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=style.css.map */

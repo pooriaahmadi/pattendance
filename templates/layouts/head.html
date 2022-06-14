@@ -1,0 +1,33 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{{ WEBSITE_NAME }} - {{ website_title }}</title>
+    <meta name="google-signin-client_id"
+          content="154280617493-rgn5mgluofrr9ea18l2iunavner30a40.apps.googleusercontent.com">
+    {# Regular meta tags #}
+    {#    <meta name="title" content="{{ website_title }}">#}
+    {#    <meta name="description"#}
+    {#          content="{{ description }}">#}
+    {# Facebook and Google meta tags #}
+    {#    <meta property="og:type" content="website">#}
+    {#    <meta property="og:url" content="https://pooria.tech/">#}
+    {#    <meta property="og:title" content="{{ website_title }}">#}
+    {#    <meta property="og:description"#}
+    {#          content="{{ description }}">#}
+    {#    <meta property="og:image"#}
+    {#          content="https://pooria.tech{{ image_url }}">#}
+    {# Twitter #}
+    {#    <meta property="twitter:card" content="summary_large_image">#}
+    {#    <meta property="twitter:url" content="https://pooria.tech/">#}
+    {#    <meta property="twitter:title" content="{{ website_title }}">#}
+    {#    <meta property="twitter:description"#}
+    {#          content="{{ description }}">#}
+    {% block custom_meta %}
+
+    {% endblock %}
+</head>
