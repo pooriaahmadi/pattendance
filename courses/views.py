@@ -64,13 +64,13 @@ class Edit(View):
         course.code = uuid.uuid4()
         course.save()
         attendance = Attendance.objects.filter(course=course)
+        associated_users = course.group.associated_users.all() if course.group else []
 
         return render(request, "pages/course_edit.html", {
             "website_title": course.title,
             "course": course,
             "attendance": list(map(lambda x: x.user, attendance)),
-            "associated_users": User.objects.all() if len(
-                course.associated_users.all()) == 0 else course.associated_users.all()
+            "associated_users": User.objects.all() if len(associated_users) == 0 else associated_users
         })
 
     def post(self, request, id):
@@ -94,12 +94,13 @@ class Edit(View):
         course.save()
 
         attendance = Attendance.objects.filter(course=course)
+        associated_users = course.group.associated_users.all() if course.group else []
         return render(request, "pages/course_edit.html", {
             "website_title": course.title,
             "course": course,
             "attendance": attendance,
             "associated_users": User.objects.all() if len(
-                course.associated_users.all()) == 0 else course.associated_users.all()
+                associated_users) == 0 else associated_users
         })
 
 
