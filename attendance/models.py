@@ -6,9 +6,9 @@ from pattendance.settings import AUTH_USER_MODEL
 
 
 class Attendance(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.name} | {self.course.title} {self.course.id} | {self.timestamp}"
+        return str(self.id)

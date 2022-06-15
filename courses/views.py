@@ -98,9 +98,8 @@ class Edit(View):
         return render(request, "pages/course_edit.html", {
             "website_title": course.title,
             "course": course,
-            "attendance": attendance,
-            "associated_users": User.objects.all() if len(
-                associated_users) == 0 else associated_users
+            "attendance": list(map(lambda x: x.user, attendance)),
+            "associated_users": User.objects.all() if len(associated_users) == 0 else associated_users
         })
 
 

@@ -55,13 +55,17 @@
             const video = document.querySelector("video")
             const input = document.getElementById("code");
             const form = document.querySelector("form")
+            let inProgress = false;
             const onResult = (result) => {
+                if (inProgress) return;
                 input.value = result.data;
+                inProgress = true;
                 form.submit()
             }
             const qrScanner = new QrScanner(video, onResult, {
                 highlightScanRegion: true,
-                disallowCanvasResizing: false
+                disallowCanvasResizing: false,
+                alsoTryWithoutScanRegion: true
             });
             qrScanner.setCamera("environment"); // async
             qrScanner.start();

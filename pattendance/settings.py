@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'courses.apps.CoursesConfig',
     'attendance.apps.AttendanceConfig',
-    'classes.apps.ClassesConfig'
+    'classes.apps.ClassesConfig',
+    'import_export'
 ]
 
 MIDDLEWARE = [

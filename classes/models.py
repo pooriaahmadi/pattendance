@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from pattendance.settings import AUTH_USER_MODEL
 
 
@@ -14,5 +15,9 @@ class Class(models.Model):
         blank=True
     )
 
+    @admin.display
+    def users(self):
+        return len(list(self.associated_users.all()))
+
     def __str__(self):
-        return f"{self.title} | {len(list(self.associated_users.all()))} students"
+        return self.title

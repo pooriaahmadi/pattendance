@@ -4,6 +4,7 @@ from django.views import View
 from django.conf import settings
 from .models import User
 import requests
+import config
 
 
 class GoogleLanding(View):
@@ -36,7 +37,6 @@ class GoogleCallback(View):
             return HttpResponse(str(error))
 
         hostname = 'http://localhost:8000' if settings.DEBUG else 'https://pattendance.pooria.tech'
-
         # Reference: https://developers.google.com/identity/protocols/oauth2/web-server#obtainingaccesstokens
         data = {
             'code': code,
@@ -55,6 +55,8 @@ class GoogleCallback(View):
             params={'access_token': access_token}
         )
         data = response.json()
+        if not config.DEBUG and data["email"].split("@")[-1] != "my.htoakville.ca":
+            return HttpResponseRedirect(reverse("main:home"))
         user = User.objects.filter(email=data["email"])
         if user.exists():
             user = user[0]
