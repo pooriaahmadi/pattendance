@@ -6,7 +6,11 @@
         <form method="POST" action="{% url 'users:google_landing' %}">
             {% csrf_token %}
             <h1>Pattendance</h1>
-            <h2>There's no time like the<br/>PRESENT</h2>
+            <h2>There's no time like the<br/>PRESENT<br/>
+                <p style="font-size: 18px">Made by <a
+                        style="color: #3D77BB; text-decoration: none"
+                        href="https://pooria.tech">Pooria
+                    Ahmadi</a></p></h2>
             <img src="{% static 'images/guy.svg' %}" alt="the_guy">
             <h3>LOGIN TO YOUR ACCOUNT</h3>
             <input type="submit" value="LOGIN USING GOOGLE">
@@ -15,6 +19,9 @@
             <div>
                 <h1>There is no time like the</h1>
                 <h1>PRESENT</h1>
+                <p>Made by <a style="text-decoration: underline; color: white; font-weight: bold"
+                              href="https://pooria.tech">Pooria
+                    Ahmadi</a></p>
             </div>
         </div>
     </div>
