@@ -5,3 +5,4 @@ from .models import Class
 @admin.register(Class)
 class ClassAdmin(admin.ModelAdmin):
     list_display = ('title', 'users')
+    filter_horizontal = ('associated_users',)

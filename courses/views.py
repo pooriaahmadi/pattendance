@@ -9,6 +9,13 @@ from attendance.models import Attendance
 import datetime
 
 
+def join_lists(lists):
+    output = []
+    for l in lists:
+        output.extend(l)
+    return output
+
+
 class All(View):
     def get(self, request):
         if not request.user.is_authenticated:
@@ -64,8 +71,8 @@ class Edit(View):
         course.code = uuid.uuid4()
         course.save()
         attendance = Attendance.objects.filter(course=course)
-        associated_users = course.group.associated_users.all() if course.group else []
-
+        classes = course.classes.all()
+        associated_users = join_lists([c.associated_users.all() for c in classes])
         return render(request, "pages/course_edit.html", {
             "website_title": course.title,
             "course": course,
@@ -94,7 +101,8 @@ class Edit(View):
         course.save()
 
         attendance = Attendance.objects.filter(course=course)
-        associated_users = course.group.associated_users.all() if course.group else []
+        classes = course.classes.all()
+        associated_users = join_lists([c.associated_users.all() for c in classes])
         return render(request, "pages/course_edit.html", {
             "website_title": course.title,
             "course": course,
@@ -153,6 +161,16 @@ class CourseView(View):
                 "course": course,
                 "error": True,
                 "details": "The classes has not been started yet."
+            })
+
+        classes = course.classes.all()
+        associated_users = join_lists([c.associated_users.all() for c in classes])
+        if not request.user in associated_users:
+            return render(request, "pages/course_view.html", {
+                "website_title": course.title,
+                "course": course,
+                "error": True,
+                "details": "This isn't your class."
             })
 
         attendance = Attendance.objects.create(user=request.user, course=course)

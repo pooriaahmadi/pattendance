@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm, DateTimeInput
+from django.contrib import admin
 from pattendance.settings import AUTH_USER_MODEL
 from classes.models import Class
 
@@ -9,7 +10,10 @@ class Course(models.Model):
     title = models.CharField(max_length=256, null=False, blank=False)
     start_time = models.DateTimeField(null=False)
     end_time = models.DateTimeField(null=False)
-    group = models.ForeignKey(Class, on_delete=models.CASCADE, null=True)
+    classes = models.ManyToManyField(
+        Class,
+        blank=True
+    )
     code = models.CharField(
         max_length=191,
         null=True,
@@ -18,6 +22,13 @@ class Course(models.Model):
     active = models.BooleanField(
         default=True
     )
+
+    @admin.display
+    def classes_display(self):
+        classes = self.classes.all()
+        if not len(classes):
+            return 'All students'
+        return ', '.join([c.title for c in classes])
 
     def __str__(self):
         return f"{self.title}"
