@@ -4,6 +4,9 @@ from pattendance.settings import AUTH_USER_MODEL
 
 
 class Class(models.Model):
+    class Meta:
+        verbose_name_plural = "Classes"
+
     title = models.CharField(
         max_length=255,
         null=False,
