@@ -4,6 +4,7 @@ from django.shortcuts import render, reverse, HttpResponseRedirect, HttpResponse
 from django.views import View
 from django.utils import timezone
 from .models import Course, EditForm
+from classes.models import Class
 from users.models import User
 from attendance.models import Attendance
 import datetime
@@ -23,9 +24,15 @@ class All(View):
 
         time = datetime.datetime.now(tz=timezone.get_current_timezone())
         courses = list(filter(lambda x: x.end_time >= time, Course.objects.filter(active=True)))
+        associated_classes = []
+        for c in Class.objects.all():
+            for user in c.associated_users.all():
+                if request.user == user:
+                    associated_classes.append(c)
         return render(request, "pages/courses_all.html", {
             "website_title": "Courses",
             'courses': courses,
+            'associated_classes': associated_classes
         })
 
 

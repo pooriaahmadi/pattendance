@@ -8,17 +8,21 @@
                 <h2>No classes are available right now.</h2>
             {% endif %}
             {% for course in courses %}
-                <a class="class"
-                   href="{% url 'courses:course_view' course.id %}"
-                >
-                    <div class="logo_wrapper">
-                        <div class="logo">
-                            <h1>{{ course.title.0|capfirst }}</h1>
-                        </div>
-                        <h1>{{ course.title|capfirst }}</h1>
-                    </div>
-                    <p>{{ course.start_time|time:"H:i" }}</p>
-                </a>
+                {% for associated_class in associated_classes %}
+                    {% if associated_class in course.classes.all %}
+                        <a class="class"
+                           href="{% url 'courses:course_view' course.id %}"
+                        >
+                            <div class="logo_wrapper">
+                                <div class="logo">
+                                    <h1>{{ course.title.0|capfirst }}</h1>
+                                </div>
+                                <h1>{{ course.title|capfirst }}</h1>
+                            </div>
+                            <p>{{ course.start_time|time:"H:i" }}</p>
+                        </a>
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
         </div>
     </div>
