@@ -9,25 +9,25 @@
     <title>{{ WEBSITE_NAME }} - {{ website_title }}</title>
     <meta name="google-signin-client_id"
           content="154280617493-rgn5mgluofrr9ea18l2iunavner30a40.apps.googleusercontent.com">
-    {# Regular meta tags #}
-    {#    <meta name="title" content="{{ website_title }}">#}
-    {#    <meta name="description"#}
-    {#          content="{{ description }}">#}
-    {# Facebook and Google meta tags #}
-    {#    <meta property="og:type" content="website">#}
-    {#    <meta property="og:url" content="https://pooria.tech/">#}
-    {#    <meta property="og:title" content="{{ website_title }}">#}
-    {#    <meta property="og:description"#}
-    {#          content="{{ description }}">#}
-    {#    <meta property="og:image"#}
-    {#          content="https://pooria.tech{{ image_url }}">#}
-    {# Twitter #}
-    {#    <meta property="twitter:card" content="summary_large_image">#}
-    {#    <meta property="twitter:url" content="https://pooria.tech/">#}
-    {#    <meta property="twitter:title" content="{{ website_title }}">#}
-    {#    <meta property="twitter:description"#}
-    {#          content="{{ description }}">#}
+    <meta name="author" content="Pooria Ahmadi">
+    {#     Regular meta tags #}
+    <meta name="title" content="{{ website_title }}">
+    <meta name="description"
+          content="There's no time like the PRESENT">
+    {#     Facebook and Google meta tags #}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pattendance.pooria.tech/">
+    <meta property="og:title" content="{{ website_title }}">
+    <meta property="og:description"
+          content="There's no time like the PRESENT">
+    <meta property="og:image"
+          content="https://pattendance.pooria.tech{% static 'images/guy.svg' %}">
+    {#     Twitter #}
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pattendance.pooria.tech/">
+    <meta property="twitter:title" content="{{ website_title }}">
+    <meta property="twitter:description"
+          content="There's no time like the PRESENT">
     {% block custom_meta %}
-
     {% endblock %}
 </head>

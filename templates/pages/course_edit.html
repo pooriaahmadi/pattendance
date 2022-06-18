@@ -1,5 +1,5 @@
 {% extends "layouts/app.html" %}
-{% load stringformat static %}
+{% load stringformat static admin_urls %}
 {% block content_inner %}
     <div class="qrcode" style="display: none">
         <button>Close</button>
@@ -32,6 +32,8 @@
                 <input type="submit" value="Save">
                 <button type="button" class="delete">Delete</button>
                 <button type="button" class="qrcode">QR code</button>
+                <a href="{% url course_opts|admin_urlname:'change' course.id %}" target="_blank">Advance edit</a>
+                <a href="{% url attendance_opts|admin_urlname:'changelist' %}" target="_blank">Attendance details</a>
             </div>
         </form>
         <div class="right">
@@ -44,6 +46,46 @@
                     {% for user in attendance %}
                         <div class="user">
                             <div class="left"><img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -68,6 +110,46 @@
                         {% if not user in attendance %}
                             <div class="user">
                                 <div class="left"><img src="
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                         {% if user.avatar %}{{ user.avatar }}{% else %}{% static 'images/guest.jpg' %}{% endif %}"
                                                        alt=""></div>

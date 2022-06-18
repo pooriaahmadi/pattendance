@@ -34,3 +34,4 @@ class AttendanceAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = AttendanceResource
     list_display = ('user', 'course', 'timestamp')
     list_filter = ('user', CourseFilter)
+    search_fields = ('user__first_name', 'user__last_name', 'user__email', 'course__title')

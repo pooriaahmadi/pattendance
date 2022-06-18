@@ -4,25 +4,34 @@
     <div class="todays-classes">
         <h1>Today's Classes</h1>
         <div class="classes">
-            {% if not courses|length %}
-                <h2>No classes are available right now.</h2>
+            {% if not not_submitted_courses|length and not submitted_courses|length %}
+                <h2>There are currently no classes.</h2>
             {% endif %}
-            {% for course in courses %}
-                {% for associated_class in associated_classes %}
-                    {% if associated_class in course.classes.all %}
-                        <a class="class"
-                           href="{% url 'courses:course_view' course.id %}"
-                        >
-                            <div class="logo_wrapper">
-                                <div class="logo">
-                                    <h1>{{ course.title.0|capfirst }}</h1>
-                                </div>
-                                <h1>{{ course.title|capfirst }}</h1>
-                            </div>
-                            <p>{{ course.start_time|time:"H:i" }}</p>
-                        </a>
-                    {% endif %}
-                {% endfor %}
+            {% for course in submitted_courses %}
+                <a class="class active"
+                   href="{% url 'courses:course_view' course.id %}"
+                >
+                    <div class="logo_wrapper">
+                        <div class="logo">
+                            <h1>{{ course.title.0|capfirst }}</h1>
+                        </div>
+                        <h1>{{ course.title|capfirst }}</h1>
+                    </div>
+                    <p>{{ course.start_time|time:"H:i" }}</p>
+                </a>
+            {% endfor %}
+            {% for course in not_submitted_courses %}
+                <a class="class"
+                   href="{% url 'courses:course_view' course.id %}"
+                >
+                    <div class="logo_wrapper">
+                        <div class="logo">
+                            <h1>{{ course.title.0|capfirst }}</h1>
+                        </div>
+                        <h1>{{ course.title|capfirst }}</h1>
+                    </div>
+                    <p>{{ course.start_time|time:"H:i" }}</p>
+                </a>
             {% endfor %}
         </div>
     </div>

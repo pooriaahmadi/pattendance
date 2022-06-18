@@ -30,6 +30,14 @@
       justify-content: space-between;
       align-items: center;
 
+      &.active {
+        > .logo_wrapper {
+          .logo {
+            background-color: #63F64B;
+          }
+        }
+      }
+
       &.deactivated {
         cursor: not-allowed;
 

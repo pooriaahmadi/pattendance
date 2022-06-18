@@ -18,6 +18,7 @@ class CourseFilter(admin.SimpleListFilter):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('teacher', 'title', 'classes_display')
+    list_display = ('title', 'teacher', 'classes_display')
     list_filter = ('teacher',)
     filter_horizontal = ('classes',)
+    search_fields = ('title',)

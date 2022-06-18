@@ -88,8 +88,19 @@ div {
         }
       }
 
+      a {
+        flex-basis: 31%;
+        flex-grow: 1;
+        text-align: center;
+        text-decoration: none;
+        background-color: #3D77BB;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       > * {
-        width: calc(100% / 3 - 10px);
+        width: calc(100% / 5 - 10px);
         font-size: 32px;
         font-weight: 500;
         color: white;

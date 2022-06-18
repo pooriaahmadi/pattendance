@@ -29,10 +29,25 @@ class All(View):
             for user in c.associated_users.all():
                 if request.user == user:
                     associated_classes.append(c)
+        not_submitted_courses = []
+        for course in courses:
+            for associated_class in associated_classes:
+                if associated_class in course.classes.all():
+                    not_submitted_courses.append(course)
+
+        submitted_courses = []
+        attendance = Attendance.objects.filter(user=request.user)
+        for not_submitted_course in not_submitted_courses:
+            for record in attendance:
+                if record.course == not_submitted_course:
+                    submitted_courses.append(not_submitted_course)
+                    not_submitted_courses.remove(not_submitted_course)
+
         return render(request, "pages/courses_all.html", {
             "website_title": "Courses",
-            'courses': courses,
-            'associated_classes': associated_classes
+            'not_submitted_courses': not_submitted_courses,
+            'submitted_courses': submitted_courses,
+            'attendance': attendance
         })
 
 
@@ -84,7 +99,9 @@ class Edit(View):
             "website_title": course.title,
             "course": course,
             "attendance": list(map(lambda x: x.user, attendance)),
-            "associated_users": User.objects.all() if len(associated_users) == 0 else associated_users
+            "associated_users": User.objects.all() if len(associated_users) == 0 else associated_users,
+            'course_opts': Course._meta,
+            'attendance_opts': Attendance._meta
         })
 
     def post(self, request, id):

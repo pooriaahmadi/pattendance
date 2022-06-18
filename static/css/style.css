@@ -103,6 +103,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.todays-classes .classes .class.active > .logo_wrapper .logo {
+  background-color: #63F64B;
+}
 .todays-classes .classes .class.deactivated {
   cursor: not-allowed;
 }
@@ -397,8 +400,18 @@ div.qrcode img {
 .course-edit > .left .bottom > button.qrcode {
   background-color: #3D77BB;
 }
+.course-edit > .left .bottom a {
+  flex-basis: 31%;
+  flex-grow: 1;
+  text-align: center;
+  text-decoration: none;
+  background-color: #3D77BB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .course-edit > .left .bottom > * {
-  width: calc(33.3333333333% - 10px);
+  width: calc(20% - 10px);
   font-size: 32px;
   font-weight: 500;
   color: white;
@@ -564,7 +577,7 @@ div.qrcode img {
   .course-edit > .left input[type=text] {
     font-size: 20px !important;
   }
-  .course-edit > .left input[type=submit], .course-edit > .left button {
+  .course-edit > .left input[type=submit], .course-edit > .left button, .course-edit > .left a {
     font-size: 16px !important;
   }
 }
