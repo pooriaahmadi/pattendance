@@ -131,7 +131,9 @@ class Edit(View):
             "website_title": course.title,
             "course": course,
             "attendance": list(map(lambda x: x.user, attendance)),
-            "associated_users": User.objects.all() if len(associated_users) == 0 else associated_users
+            "associated_users": User.objects.all() if len(associated_users) == 0 else associated_users,
+            'course_opts': Course._meta,
+            'attendance_opts': Attendance._meta
         })
 
 
