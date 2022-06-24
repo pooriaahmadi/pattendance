@@ -2,9 +2,20 @@ from django.shortcuts import render, HttpResponseRedirect, reverse, HttpResponse
 from django.contrib.auth import authenticate, login
 from django.views import View
 from django.conf import settings
+from courses.models import Course
+import datetime
+from django.utils import timezone
+from attendance.models import Attendance
 from .models import User
 import requests
 import config
+
+
+def join_lists(lists):
+    output = []
+    for l in lists:
+        output.extend(l)
+    return output
 
 
 class GoogleLanding(View):
@@ -75,4 +86,49 @@ class GoogleCallback(View):
             user.save()
 
         login(request, user)
+        if request.COOKIES.get("requested_course"):
+            data = request.COOKIES.get("requested_course")
+            id = data.split(":")[0]
+            code = data.split(":")[1]
+            course = Course.objects.filter(id=id)
+            if not course.exists():
+                return HttpResponseRedirect(reverse("courses:all"))
+            course = course.first()
+            if not course.active:
+                return HttpResponseRedirect(reverse("courses:all"))
+            if not course.code == code:
+                return render(request, "pages/course_view.html", {
+                    "website_title": course.title,
+                    "course": course,
+                    "error": True,
+                    "details": "I'm sorry, buddy. Try again pls <3"
+                })
+
+            time = datetime.datetime.now(tz=timezone.get_current_timezone())
+            if time < course.start_time:
+                return render(request, "pages/course_view.html", {
+                    "website_title": course.title,
+                    "course": course,
+                    "error": True,
+                    "details": "The classes has not been started yet."
+                })
+
+            classes = course.classes.all()
+            associated_users = join_lists([c.associated_users.all() for c in classes])
+            if not request.user in associated_users:
+                return render(request, "pages/course_view.html", {
+                    "website_title": course.title,
+                    "course": course,
+                    "error": True,
+                    "details": "This isn't your class."
+                })
+
+            attendance = Attendance.objects.create(user=request.user, course=course)
+            attendance.save()
+            return render(request, "pages/course_view.html", {
+                "website_title": course.title,
+                "course": course,
+                "attendance": attendance
+            })
+
         return HttpResponseRedirect(reverse("courses:all"))

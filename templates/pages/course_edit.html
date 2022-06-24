@@ -50,45 +50,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     {% if user.avatar %}{{ user.avatar }}{% else %}{% static 'images/guest.jpg' %}{% endif %}"
                                                    alt="">
                             </div>
@@ -114,43 +75,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                         {% if user.avatar %}{{ user.avatar }}{% else %}{% static 'images/guest.jpg' %}{% endif %}"
                                                        alt=""></div>
                                 <div class="right">
@@ -171,12 +95,11 @@
 
 {% block custom_javascript %}
     <script>
-        const code = "{{ course.code }}";
         let interval = null;
         isQRcode = localStorage.getItem("qrcode");
         if (isQRcode == "true") {
             let secondsPassed = 0;
-            const secondsLimit = 20;
+            const secondsLimit = 10;
             document.querySelector("div.qrcode h1").innerHTML = `Refreshes in ${secondsLimit - secondsPassed} seconds`;
             document.querySelector("div.qrcode").style.display = "flex";
 
@@ -219,7 +142,7 @@
             localStorage.setItem("qrcode", false)
         })
         new QRCode(document.querySelector(".qrcode>.inner"), {
-            text: code,
+            text: "{% if DEBUG %}http://localhost:8000{% else %}https://pattendance.pooria.tech{% endif %}{% url 'courses:submit' course.id course.code %}",
             width: 1024,
             height: 1024
         });

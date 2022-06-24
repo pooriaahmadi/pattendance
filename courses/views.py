@@ -3,6 +3,7 @@ import uuid
 from django.shortcuts import render, reverse, HttpResponseRedirect, HttpResponse
 from django.views import View
 from django.utils import timezone
+from django.conf import settings
 from .models import Course, EditForm
 from classes.models import Class
 from users.models import User
@@ -90,7 +91,7 @@ class Edit(View):
             return HttpResponseRedirect(reverse("courses:all_manage"))
 
         course = course.first()
-        course.code = uuid.uuid4()
+        course.code = uuid.uuid4().hex.upper()[0:6]
         course.save()
         attendance = Attendance.objects.filter(course=course)
         classes = course.classes.all()
@@ -163,6 +164,73 @@ class CourseView(View):
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse("main:home"))
         code = request.POST.get("code")
+        if not code:
+            return HttpResponseRedirect(reverse("courses:all"))
+
+        course = Course.objects.filter(id=id)
+        if not course.exists():
+            return HttpResponseRedirect(reverse("courses:all"))
+        course = course.first()
+        if not course.active:
+            return HttpResponseRedirect(reverse("courses:all"))
+        if not course.code == code:
+            return render(request, "pages/course_view.html", {
+                "website_title": course.title,
+                "course": course,
+                "error": True,
+                "details": "I'm sorry, buddy. Try again pls <3"
+            })
+
+        time = datetime.datetime.now(tz=timezone.get_current_timezone())
+        if time < course.start_time:
+            return render(request, "pages/course_view.html", {
+                "website_title": course.title,
+                "course": course,
+                "error": True,
+                "details": "The classes has not been started yet."
+            })
+
+        classes = course.classes.all()
+        associated_users = join_lists([c.associated_users.all() for c in classes])
+        if not request.user in associated_users:
+            return render(request, "pages/course_view.html", {
+                "website_title": course.title,
+                "course": course,
+                "error": True,
+                "details": "This isn't your class."
+            })
+
+        attendance = Attendance.objects.create(user=request.user, course=course)
+        attendance.save()
+        return render(request, "pages/course_view.html", {
+            "website_title": course.title,
+            "course": course,
+            "attendance": attendance
+        })
+
+
+class Submit(View):
+    def get(self, request, id, code):
+        if not request.user.is_authenticated:
+            hostname = 'http://localhost:8000' if settings.DEBUG else 'https://pattendance.pooria.tech'
+            google_auth_url = "https://accounts.google.com/o/oauth2/v2/auth"
+            redirect_uri = reverse("users:google_callback")
+            scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+            params = {
+                'response_type': 'code',
+                'client_id': '154280617493-rgn5mgluofrr9ea18l2iunavner30a40.apps.googleusercontent.com',
+                'redirect_uri': f"{hostname}{redirect_uri}",
+                'prompt': 'select_account',
+                'access_type': 'offline',
+                'scope': scope
+            }
+            string_params = "?"
+            for key, value in params.items():
+                string_params += f"{key}={value}&"
+            response = HttpResponseRedirect(f"{google_auth_url}{string_params}")
+            response.set_cookie('requested_course', f"{id}:{code}")
+            return response
+
         if not code:
             return HttpResponseRedirect(reverse("courses:all"))
 

@@ -58,7 +58,7 @@
             let inProgress = false;
             const onResult = (result) => {
                 if (inProgress) return;
-                input.value = result.data;
+                input.value = result.data.split("/").pop();
                 inProgress = true;
                 form.submit()
             }
@@ -69,7 +69,6 @@
             });
             qrScanner.setCamera("environment"); // async
             qrScanner.start();
-
         </script>
     {% endblock %}
 {% endif %}

@@ -8,5 +8,6 @@ urlpatterns = [
     path("all/manage", AllAdmin.as_view(), name="all_manage"),
     path("<int:id>/view", CourseView.as_view(), name="course_view"),
     path("<int:id>/edit", Edit.as_view(), name="edit"),
-    path("<int:id>/delete", Delete.as_view(), name="delete")
+    path("<int:id>/delete", Delete.as_view(), name="delete"),
+    path("<int:id>/submit/<str:code>", Submit.as_view(), name="submit")
 ]
